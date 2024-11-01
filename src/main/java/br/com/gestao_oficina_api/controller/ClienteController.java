@@ -25,7 +25,7 @@ public class ClienteController {
 
         List<Cliente> clientes = clienteService.findAll();
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ClienteMapper.toResponseList(clientes));
+        return ResponseEntity.status(HttpStatus.OK).body(ClienteMapper.toResponseList(clientes));
     }
 
     @GetMapping("/{id}")
@@ -43,7 +43,7 @@ public class ClienteController {
 
         cliente = clienteService.save(cliente);
 
-        return ResponseEntity.status(HttpStatus.OK).body(ClienteMapper.toResponse(cliente));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ClienteMapper.toResponse(cliente));
     }
 
     @PutMapping("/{id}")

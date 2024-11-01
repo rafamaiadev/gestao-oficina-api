@@ -44,7 +44,7 @@ public class FuncionarioController {
 
         funcionario = funcionarioService.save(funcionario);
 
-        return ResponseEntity.status(HttpStatus.OK).body(FuncionarioMapper.toResponse(funcionario));
+        return ResponseEntity.status(HttpStatus.CREATED).body(FuncionarioMapper.toResponse(funcionario));
     }
 
     @PutMapping("/{id}")
