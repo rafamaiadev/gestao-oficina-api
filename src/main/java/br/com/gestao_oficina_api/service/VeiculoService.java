@@ -1,8 +1,10 @@
 package br.com.gestao_oficina_api.service;
 
+import br.com.gestao_oficina_api.domain.filter.VeiculoFilter;
 import br.com.gestao_oficina_api.domain.model.Veiculo;
 import br.com.gestao_oficina_api.exception.ResourceNotFoundException;
 import br.com.gestao_oficina_api.repository.VeiculoRepository;
+import br.com.gestao_oficina_api.repository.spec.VeiculoSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,17 @@ public class VeiculoService {
 
     public List<Veiculo> findAll() {
         return veiculoRepository.findAll();
+    }
+
+    public List<Veiculo> filter(VeiculoFilter filter) {
+
+        List<Veiculo> veiculos = veiculoRepository.findAll(VeiculoSpecification.filter(filter));
+
+        if (veiculos.isEmpty()) {
+            throw new ResourceNotFoundException("Nenhum veículo encontrado com os critérios fornecidos.");
+        }
+
+        return veiculos;
     }
 
     public Veiculo findById(Long id) {
