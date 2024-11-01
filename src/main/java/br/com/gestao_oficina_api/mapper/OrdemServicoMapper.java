@@ -17,7 +17,6 @@ public class OrdemServicoMapper {
         ordemServico.setDescricao(dto.descricao());
         ordemServico.setDataAbertura(dto.dataAbertura());
         ordemServico.setStatus(dto.status());
-        ordemServico.setValorEstimado(dto.valorEstimado());;
 
         return ordemServico;
     }
@@ -27,7 +26,6 @@ public class OrdemServicoMapper {
         if (dto.descricao() != null) ordemServico.setDescricao(dto.descricao());
         if (dto.status() != null) ordemServico.setStatus(dto.status());
         if (dto.dataAbertura() != null) ordemServico.setDataAbertura(dto.dataAbertura());
-        if (dto.valorEstimado() != null) ordemServico.setValorEstimado(dto.valorEstimado());
     }
 
     public static OrdemServicoResponseDTO toResponse(OrdemServico ordemServico) {
