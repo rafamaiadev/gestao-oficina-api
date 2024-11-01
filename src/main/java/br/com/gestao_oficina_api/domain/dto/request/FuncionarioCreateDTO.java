@@ -1,7 +1,6 @@
 package br.com.gestao_oficina_api.domain.dto.request;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
 public record FuncionarioCreateDTO (

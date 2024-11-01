@@ -1,6 +1,5 @@
 package br.com.gestao_oficina_api.domain.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -15,12 +14,8 @@ public record OrdemServicoUpdateDTO (
         @NotEmpty(message = "O status é obrigatório")
         String status,
 
-        Double valorEstimado,
-
         @NotNull
         LocalDate dataAbertura,
-
-        Long veiculoId,
 
         List<Long> servicosIds
 ) {}

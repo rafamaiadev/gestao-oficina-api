@@ -11,8 +11,6 @@ public record VeiculoUpdateDTO(
 
         Integer anoFabricacao,
 
-        String tipo,
-
-        Long clienteId
+        String tipo
 ) {}
 

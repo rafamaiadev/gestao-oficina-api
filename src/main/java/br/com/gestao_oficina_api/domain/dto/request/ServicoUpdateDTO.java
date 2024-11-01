@@ -1,10 +1,12 @@
 package br.com.gestao_oficina_api.domain.dto.request;
 
+import java.math.BigDecimal;
+
 public record ServicoUpdateDTO (
 
         String descricao,
 
-        Double precoBase,
+        BigDecimal precoBase,
 
         Integer duracaoMedia
 ) {}
