@@ -1,8 +1,10 @@
 package br.com.gestao_oficina_api.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -15,10 +17,11 @@ public class Servico {
 
     private String descricao;
 
-    private Double precoBase;
+    private BigDecimal precoBase;
 
     private Integer duracaoMedia;
 
     @ManyToMany(mappedBy = "servicos")
+    @JsonIgnore
     private List<OrdemServico> ordensServico;
 }

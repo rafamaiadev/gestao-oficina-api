@@ -6,6 +6,7 @@ import br.com.gestao_oficina_api.repository.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -16,6 +17,11 @@ public class ServicoService {
 
     public List<Servico> findAll() {
         return servicoRepository.findAll();
+    }
+
+    public List<Servico> findAllById(List<Long> ids) {
+
+        return servicoRepository.findAllById(ids);
     }
 
     public Servico findById(Long id) {
@@ -29,6 +35,13 @@ public class ServicoService {
 
     public void deleteById(Long id) {
         servicoRepository.deleteById(id);
+    }
+
+    public BigDecimal sumValorTotalServicos(List<Servico> servicos) {
+
+        return servicos.stream()
+                .map(Servico::getPrecoBase)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
 
