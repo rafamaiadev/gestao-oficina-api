@@ -3,6 +3,7 @@ package br.com.gestao_oficina_api.domain.dto.request;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 public record ClienteCreateDTO(
 
@@ -10,6 +11,7 @@ public record ClienteCreateDTO(
         String nome,
 
         @NotEmpty(message = "O telefone é obrigatório")
+        @Size(min = 11, max = 11, message = "O telefone deve ter 11 dígitos")
         String telefone,
 
         @NotEmpty(message = "O endereço é obrigatório")
