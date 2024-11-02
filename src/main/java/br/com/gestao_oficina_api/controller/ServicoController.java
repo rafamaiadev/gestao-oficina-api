@@ -3,7 +3,9 @@ package br.com.gestao_oficina_api.controller;
 import br.com.gestao_oficina_api.domain.dto.request.ServicoCreateDTO;
 import br.com.gestao_oficina_api.domain.dto.request.ServicoUpdateDTO;
 import br.com.gestao_oficina_api.domain.dto.response.ServicoResponseDTO;
+import br.com.gestao_oficina_api.domain.model.OrdemServico;
 import br.com.gestao_oficina_api.domain.model.Servico;
+import br.com.gestao_oficina_api.exception.ResourceNotFoundException;
 import br.com.gestao_oficina_api.mapper.ServicoMapper;
 import br.com.gestao_oficina_api.service.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +63,8 @@ public class ServicoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteServico(@PathVariable Long id) {
+
+        Servico servico = servicoService.findById(id);
 
         servicoService.deleteById(id);
 

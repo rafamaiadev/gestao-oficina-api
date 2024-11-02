@@ -4,14 +4,15 @@ import br.com.gestao_oficina_api.domain.dto.request.ClienteCreateDTO;
 import br.com.gestao_oficina_api.domain.dto.request.ClienteUpdateDTO;
 import br.com.gestao_oficina_api.domain.dto.response.ClienteResponseDTO;
 import br.com.gestao_oficina_api.domain.model.Cliente;
+import br.com.gestao_oficina_api.exception.ResourceNotFoundException;
 import br.com.gestao_oficina_api.mapper.ClienteMapper;
 import br.com.gestao_oficina_api.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -60,6 +61,8 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
+
+        Cliente cliente = clienteService.findById(id);
 
         clienteService.deleteById(id);
 

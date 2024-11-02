@@ -6,6 +6,7 @@ import br.com.gestao_oficina_api.domain.dto.response.VeiculoResponseDTO;
 import br.com.gestao_oficina_api.domain.filter.VeiculoFilter;
 import br.com.gestao_oficina_api.domain.model.Cliente;
 import br.com.gestao_oficina_api.domain.model.Veiculo;
+import br.com.gestao_oficina_api.exception.ResourceNotFoundException;
 import br.com.gestao_oficina_api.mapper.VeiculoMapper;
 import br.com.gestao_oficina_api.service.ClienteService;
 import br.com.gestao_oficina_api.service.VeiculoService;
@@ -76,6 +77,8 @@ public class VeiculoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVeiculo(@PathVariable Long id) {
+
+        Veiculo veiculo = veiculoService.findById(id);
 
         veiculoService.deleteById(id);
 

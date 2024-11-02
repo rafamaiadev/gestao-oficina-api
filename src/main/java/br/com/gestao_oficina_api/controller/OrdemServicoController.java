@@ -98,6 +98,8 @@ public class OrdemServicoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrdemServico(@PathVariable Long id) {
 
+        OrdemServico ordemServico = ordemServicoService.findById(id);
+
         ordemServicoService.deleteById(id);
 
         return ResponseEntity.noContent().build();
