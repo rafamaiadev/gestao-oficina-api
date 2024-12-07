@@ -4,9 +4,9 @@ import br.com.gestao_oficina_api.domain.dto.request.FuncionarioCreateDTO;
 import br.com.gestao_oficina_api.domain.dto.request.FuncionarioUpdateDTO;
 import br.com.gestao_oficina_api.domain.dto.response.FuncionarioResponseDTO;
 import br.com.gestao_oficina_api.domain.model.Funcionario;
-import br.com.gestao_oficina_api.exception.ResourceNotFoundException;
 import br.com.gestao_oficina_api.mapper.FuncionarioMapper;
-import br.com.gestao_oficina_api.service.FuncionarioService;
+import br.com.gestao_oficina_api.service.IFuncionarioService;
+import br.com.gestao_oficina_api.service.impl.FuncionarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +19,11 @@ import java.util.List;
 @RequestMapping("/funcionarios")
 public class FuncionarioController {
 
-    @Autowired
-    private FuncionarioService funcionarioService;
+    private final IFuncionarioService funcionarioService;
+
+    public FuncionarioController(FuncionarioServiceImpl funcionarioService) {
+        this.funcionarioService = funcionarioService;
+    }
 
     @GetMapping
     public ResponseEntity<List<FuncionarioResponseDTO>> getAllFuncionarios() {
@@ -62,8 +65,6 @@ public class FuncionarioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFuncionario(@PathVariable Long id) {
-
-        Funcionario funcionario = funcionarioService.findById(id);
 
         funcionarioService.deleteById(id);
 

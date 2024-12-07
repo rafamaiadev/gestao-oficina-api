@@ -8,15 +8,16 @@ import br.com.gestao_oficina_api.domain.model.Servico;
 import br.com.gestao_oficina_api.domain.model.Veiculo;
 import br.com.gestao_oficina_api.exception.ResourceNotFoundException;
 import br.com.gestao_oficina_api.mapper.OrdemServicoMapper;
-import br.com.gestao_oficina_api.service.OrdemServicoService;
-import br.com.gestao_oficina_api.service.ServicoService;
-import br.com.gestao_oficina_api.service.VeiculoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.gestao_oficina_api.service.IOrdemServicoService;
+import br.com.gestao_oficina_api.service.IServicoService;
+import br.com.gestao_oficina_api.service.IVeiculoService;
+import br.com.gestao_oficina_api.service.impl.OrdemServicoServiceImpl;
+import br.com.gestao_oficina_api.service.impl.ServicoServiceImpl;
+import br.com.gestao_oficina_api.service.impl.VeiculoServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.validation.Valid;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,14 +26,15 @@ import java.util.List;
 @RequestMapping("/ordens-servico")
 public class OrdemServicoController {
 
-    @Autowired
-    private OrdemServicoService ordemServicoService;
+    private final IOrdemServicoService ordemServicoService;
+    private final IVeiculoService veiculoService;
+    private final IServicoService servicoService;
 
-    @Autowired
-    private VeiculoService veiculoService;
-
-    @Autowired
-    private ServicoService servicoService;
+    public OrdemServicoController(OrdemServicoServiceImpl ordemServicoService, VeiculoServiceImpl veiculoService, ServicoServiceImpl servicoService) {
+        this.ordemServicoService = ordemServicoService;
+        this.veiculoService = veiculoService;
+        this.servicoService = servicoService;
+    }
 
     @GetMapping
     public ResponseEntity<List<OrdemServicoResponseDTO>> getAllOrdensServico() {
@@ -97,8 +99,6 @@ public class OrdemServicoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrdemServico(@PathVariable Long id) {
-
-        OrdemServico ordemServico = ordemServicoService.findById(id);
 
         ordemServicoService.deleteById(id);
 

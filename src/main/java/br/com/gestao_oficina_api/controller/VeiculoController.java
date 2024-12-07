@@ -6,27 +6,27 @@ import br.com.gestao_oficina_api.domain.dto.response.VeiculoResponseDTO;
 import br.com.gestao_oficina_api.domain.filter.VeiculoFilter;
 import br.com.gestao_oficina_api.domain.model.Cliente;
 import br.com.gestao_oficina_api.domain.model.Veiculo;
-import br.com.gestao_oficina_api.exception.ResourceNotFoundException;
 import br.com.gestao_oficina_api.mapper.VeiculoMapper;
-import br.com.gestao_oficina_api.service.ClienteService;
-import br.com.gestao_oficina_api.service.VeiculoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.gestao_oficina_api.service.IClienteService;
+import br.com.gestao_oficina_api.service.IVeiculoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/veiculos")
 public class VeiculoController {
 
-    @Autowired
-    private VeiculoService veiculoService;
+    private final IVeiculoService veiculoService;
+    private final IClienteService clienteService;
 
-    @Autowired
-    private ClienteService clienteService;
+    public VeiculoController(IVeiculoService veiculoService, IClienteService clienteService) {
+        this.veiculoService = veiculoService;
+        this.clienteService = clienteService;
+    }
 
     @GetMapping
     public ResponseEntity<List<VeiculoResponseDTO>> getAllVeiculos() {
@@ -47,7 +47,7 @@ public class VeiculoController {
 
     @GetMapping("/filterBy")
     public List<Veiculo> filter(VeiculoFilter filter) {
-        return veiculoService.filter(filter);
+        return veiculoService.filterBy(filter);
     }
 
     @PostMapping
@@ -77,8 +77,6 @@ public class VeiculoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVeiculo(@PathVariable Long id) {
-
-        Veiculo veiculo = veiculoService.findById(id);
 
         veiculoService.deleteById(id);
 

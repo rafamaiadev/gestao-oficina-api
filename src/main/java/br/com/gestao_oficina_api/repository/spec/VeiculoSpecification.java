@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class VeiculoSpecification {
 
-    public static Specification<Veiculo> filter(VeiculoFilter filter) {
+    public static Specification<Veiculo> filterBy(VeiculoFilter filter) {
 
         return (root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -32,6 +32,7 @@ public class VeiculoSpecification {
                 predicates.add(builder.equal(root.get("cliente").get("id"), filter.clienteId()));
             }
 
+            assert query != null;
             query.orderBy(builder.asc(root.get("modelo")));
 
             return builder.and(predicates.toArray(new Predicate[0]));
